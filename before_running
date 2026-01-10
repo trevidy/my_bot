@@ -1,1 +1,13 @@
+colcon build --symlink-install
+
 export LIBGL_ALWAYS_SOFTWARE=1
+
+# Running rsp.launch.py (robot state publisher)
+ros2 launch my_bot rsp.launch.py use_sim_time:=true
+
+# Running gazebo
+ros2 launch gazebo_ros gazebo.launch.py
+
+# Spawning our robot in Gazebo
+## Informs that the URDF is being published by robot state publisher on a topic called robot_description
+ros2 run gazebo_ros spawn_entity.py -topic robot_description -entity bot_name
