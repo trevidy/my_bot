@@ -19,6 +19,10 @@
         <color rgba="0 0 0 1"/>
     </material>
 
+    <material name = "red">
+        <color rgba="1 0 0 1"/>
+    </material>
+
     <!-- BASE LINK -->
 
     <link name = "base_link"> 
@@ -67,7 +71,7 @@
 
     <link name = "left_wheel">
         <visual>
-            <geometry>z
+            <geometry>
                 <cylinder radius = "0.05" length = "0.04"/>
             </geometry>
             <material name = "blue"/>
