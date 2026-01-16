@@ -16,7 +16,7 @@ ros2 run gazebo_ros spawn_entity.py -topic robot_description -entity bot_name
 ros2 launch my_bot launch_sim.launch.py world:=./src/my_bot/worlds/obstacles.world
 
 # keyboard control
-ros2 run teleop_twist_keyboard teleop_twist_keyboard
+ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args -r /cmd_vel:=/diff_cont/cmd_vel_unstamped
 
 # running rviz with saved world
 rviz2 -d src/my_bot/config/view_bot.rviz
