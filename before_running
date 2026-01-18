@@ -23,3 +23,15 @@ rviz2 -d src/my_bot/config/view_bot.rviz
 
 # running the SLAM toolbox
 ros2 launch slam_toolbox online_async_launch.py slam_params_file:=./src/my_bot/config/mapper_params_online_async.yaml use_sim_time:=true
+
+# runs joystick (teleop_twistjoy)
+ros2 launch my_bot joystick.launch.py
+
+# runs the rosbridge server
+ros2 run rosbridge_server rosbridge_websocket # if error, try to run rosbridge from source
+
+# 1) launch teleop_twist_joy
+# 2) launch rosbridge server
+# 3) launch the web page
+# 4) launch gazebo
+# 5) use the controller
