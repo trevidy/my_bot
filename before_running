@@ -24,14 +24,29 @@ rviz2 -d src/my_bot/config/view_bot.rviz
 # running the SLAM toolbox
 ros2 launch slam_toolbox online_async_launch.py slam_params_file:=./src/my_bot/config/mapper_params_online_async.yaml use_sim_time:=true
 
-# runs joystick (teleop_twistjoy)
-ros2 launch my_bot joystick.launch.py
-
 # runs the rosbridge server
 ros2 run rosbridge_server rosbridge_websocket # if error, try to run rosbridge from source
 
-# 1) launch teleop_twist_joy
+# 1) launch joystick (teleop_twist_joy)
+ros2 launch my_bot joystick.launch.py
+
 # 2) launch rosbridge server
+ros2 run rosbridge_server rosbridge_websocket --ros-args -p address:=0.0.0.0
+
 # 3) launch the web page
-# 4) launch gazebo
+npm start
+
+# 4) launch gazebo (Gazebo boots up controller manager and checks description->ros2_control->gazebo tag)
+ros2 launch my_bot launch_sim.launch.py world:=./src/my_bot/worlds/obstacles.world
+
 # 5) use the controller
+
+# forward motion debugging:
+ros2 topic pub /joy sensor_msgs/msg/Joy "{
+  axes: [0.0, 1.0, 0.0, 0.0],
+  buttons: [0, 0, 0, 0]
+}"
+
+# resetting daemon
+ros2 daemon stop
+ros2 daemon start
