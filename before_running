@@ -27,17 +27,17 @@ ros2 launch slam_toolbox online_async_launch.py slam_params_file:=./src/my_bot/c
 # runs the rosbridge server
 ros2 run rosbridge_server rosbridge_websocket # if error, try to run rosbridge from source
 
-# 1) launch joystick (teleop_twist_joy)
+# 1) launch gazebo (Gazebo boots up controller manager and checks description->ros2_control->gazebo tag)
+ros2 launch my_bot launch_sim.launch.py world:=./src/my_bot/worlds/obstacles.world
+
+# 2) launch joystick (teleop_twist_joy)
 ros2 launch my_bot joystick.launch.py
 
-# 2) launch rosbridge server
+# 3) launch rosbridge server
 ros2 run rosbridge_server rosbridge_websocket --ros-args -p address:=0.0.0.0
 
-# 3) launch the web page
+# 4) launch the web page
 npm start
-
-# 4) launch gazebo (Gazebo boots up controller manager and checks description->ros2_control->gazebo tag)
-ros2 launch my_bot launch_sim.launch.py world:=./src/my_bot/worlds/obstacles.world
 
 # 5) use the controller
 
